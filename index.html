@@ -3,20 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Etch-a-Sketch</title>
+    <title>Etch-A-Sketch</title>
     <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
 </head>
 <body>
-    <h1>Etch-a-Sketch</h1>
-    <div class="buttoncontainer">
-
-        <button class="clear">Clear</button>
-    <button class="random">Random</button>
-<button class="black">Black</button>
-<button class="eraser">Eraser</button>
-</div>
-    <div class="container">
-    </div>
+    <section>
+        <header>
+            <h1>Etch-A-Sketch</h1>
+            <button class="toggleThemeButton"></button>
+        </header>
+        <div class="btnContainer">
+            <button type="button" class="gridSize">Grid Size</button>
+            <button type="button" class="brush">Brush</button>
+            <button type="button" class="randomColors">Random Colors</button>
+            <button type="button" class="eraser">Eraser</button>
+            <button type="reset" class="reset">Reset</button>
+        </div>
+        <div class="grid-container">
+        </div>
+        <footer>
+            <p>Created by <a href="https://github.com/Mohabexe">Mohabexe</a></p>
+        </footer>
+    </section>
 </body>
-    <script src="script.js"></script>
 </html>
