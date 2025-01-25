@@ -13,8 +13,8 @@ gridSizeButton.addEventListener('click', () => {
         return;
     }
     gridContainer.innerHTML = '';
-    gridContainer.style.width = '800px';
-    gridContainer.style.height = '800px';
+    gridContainer.style.width = '600px';
+    gridContainer.style.height = '600px';
     gridContainer.style.display = 'grid';
     gridContainer.style.gridTemplateColumns = `repeat(${gridSize}, 1fr)`;
     gridContainer.style.gridTemplateRows = `repeat(${gridSize}, 1fr)`;
