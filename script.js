@@ -6,6 +6,10 @@ const resetButton = document.querySelector('.reset');
 const gridSizeButton = document.querySelector('.gridSize');
 const allButtons = document.querySelectorAll('button');
 
+let isDrawing = false;
+let currentMode = 'brush';
+
+
 gridSizeButton.addEventListener('click', () => {
     const gridSize = prompt('Enter the size of the grid (1-100):');
     if (gridSize < 1 || gridSize > 100) {
@@ -26,88 +30,67 @@ gridSizeButton.addEventListener('click', () => {
     }
 });
 
-
-const toggleThemeButton = document.querySelector('.toggleThemeButton');
-let isDarkMode = false;
-toggleThemeButton.textContent = '🌙';
-
-toggleThemeButton.addEventListener('click', () => {
-    if (isDarkMode) {
-        document.body.style.backgroundColor = '#fff';
-        document.body.style.color = '#000';
-        toggleThemeButton.textContent = '🌙';
-        allButtons.forEach(button => {
-            button.style.backgroundColor = '#11B5E4';
-            button.style.color = '#000';
-        });
-        gridContainer.style.border = '1px solid #000';
-        gridContainer.style.transition = 'all 0.2s';
-        allButtons.forEach(button => {
-            button.style.transition = 'all 0.2s';
-        });
-        document.body.style.transition = 'all 0.2s';
-    } else {
-        document.body.style.backgroundColor = '#001021';
-        document.body.style.color = '#fff';
-        toggleThemeButton.textContent = '☀️';
-
-        gridContainer.style.border = '1px solid #FFF';
-
-        allButtons.forEach(button => {
-            button.style.backgroundColor = '#034748';
-            button.style.color = '#fff';
-        });
-        gridContainer.style.transition = 'all 0.2s';
-        allButtons.forEach(button => {
-            button.style.transition = 'all 0.2s';
-        });
-        
-
-        document.body.style.transition = 'all 0.2s';
-    }
-    isDarkMode = !isDarkMode;
+eraserButton.addEventListener('click', () => {
+    currentMode = 'eraser';
 });
 
-eraserButton.addEventListener('click', () => {
+brushButton.addEventListener('click', () => {
+    currentMode = 'brush';
+});
+randomColorsButton.addEventListener('click', () =>{
+    currentMode = 'random'
+})
 
-    gridBlocks.forEach(block => {
-        block.addEventListener('mouseover', () => {
-            if(isDarkMode) {
-                block.style.backgroundColor = '#001021';
-            }
-            else {
-                block.style.backgroundColor = 'white';
-            }
-        });
-    });
+gridContainer.addEventListener('mousedown', () => {
+    isDrawing = true;
+});
+
+gridContainer.addEventListener('mouseup', () => {
+    isDrawing = false;
+});
+
+gridContainer.addEventListener('mouseleave', () => {
+    isDrawing = false;
+});
+
+gridContainer.addEventListener('mousemove', (e) => {
+    if (isDrawing && e.target.classList.contains('gridblock')) {
+        if (currentMode === 'brush') {
+            e.target.style.backgroundColor = 'black';
+        } else if (currentMode === 'eraser') {
+            e.target.style.backgroundColor = 'white';
+        } else if (currentMode === 'random') {
+            e.target.style.backgroundColor = `#${Math.floor(Math.random()*16777215).toString(16)}`;
+        }
+    }
+});
+
+gridContainer.addEventListener('mousedown', (e) => {
+    if (e.target.classList.contains('gridblock')) {
+        if (currentMode === 'brush') {
+            e.target.style.backgroundColor = 'black';
+        } else if (currentMode === 'eraser') {
+            e.target.style.backgroundColor = 'white';
+        }else if (currentMode === 'random') {
+            e.target.style.backgroundColor = `#${Math.floor(Math.random()*16777215).toString(16)}`;
+        }
+    }
 });
 
 resetButton.addEventListener('click', () => {
     const gridBlocks = document.querySelectorAll('.gridblock');
     gridBlocks.forEach(block => {
-        if(isDarkMode) {
-            block.style.backgroundColor = '#001021';
-        } else {
-            block.style.backgroundColor = 'white';
-        }
+        block.style.backgroundColor = 'white';
     });
 });
 
-brushButton.addEventListener('click', () => {
-    const gridBlocks = document.querySelectorAll('.gridblock');
-    gridBlocks.forEach(block => {
-        block.addEventListener('mouseover', () => {
-            block.style.backgroundColor = 'black';
-        });
-    });
-});
-randomColorsButton.addEventListener('click', () => {
-    const gridBlocks = document.querySelectorAll('.gridblock');
-    gridBlocks.forEach(block => {
-        block.addEventListener('mouseover', () => {
-            block.style.backgroundColor = `#${Math.floor(Math.random()*16777215).toString(16)}`;
-        });
-    });
-});
+// randomColorsButton.addEventListener('click', () => {
+//     const gridBlocks = document.querySelectorAll('.gridblock');
+//     gridBlocks.forEach(block => {
+//         block.addEventListener('mouseover', () => {
+//             block.style.backgroundColor = `#${Math.floor(Math.random()*16777215).toString(16)}`;
+//         });
+//     });
+// });
 
 
